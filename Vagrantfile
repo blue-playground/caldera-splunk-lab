@@ -34,7 +34,8 @@ Vagrant.configure("2") do |config|
     victim.vm.communicator = "winrm"
     victim.vm.network :private_network, ip: "10.0.0.12"
     victim.winrm.port = 55985
-    victim.vm.provision "shell", path: "scripts/AgentDeploy.ps1", run: "always"
+    victim.vm.provision "shell", path: "scripts/win_config/AgentDeploy.ps1", run: "always"
+    victim.vm.provision "shell", path: "scripts/win_config/install-sysmon.ps1", run: "always"
 
     victim.vm.provider "virtualbox" do |v|
       # v.name = "caldera_victim"
