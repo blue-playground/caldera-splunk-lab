@@ -14,9 +14,21 @@ This project aims to be built as a detection engineering pipeline to understand 
 
 ```shell
 
+git clone <<PROJECT_URL>>
+cd <path/to/caldera-splunk-lab>
 vagrant up
 
 ```
+
+## Additional Notes
+
+If you are using Windows as the base OS to build this lab, following features may conflict with Vagrant.
+
+- Hyper V
+- Virtual Machine Platform
+- WSL
+
+If required, these may need to be disabled.
 
 ## TODO
 
