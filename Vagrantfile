@@ -21,6 +21,8 @@ Vagrant.configure("2") do |config|
       sudo apt install python3-pip -y
       sudo snap install go --classic
       git clone https://github.com/mitre/caldera.git --recursive
+    SHELL
+    caldera.vm.provision "shell", run: "always" ,inline: <<-SHELL
       cd caldera
       pip3 install -r requirements.txt
       python3 server.py --insecure &
@@ -32,9 +34,10 @@ Vagrant.configure("2") do |config|
     victim.vm.communicator = "winrm"
     victim.vm.network :private_network, ip: "10.0.0.12"
     victim.winrm.port = 55985
+    victim.vm.provision "shell", path: "scripts/AgentDeploy.ps1", run: "always"
 
     victim.vm.provider "virtualbox" do |v|
-      v.name = "caldera_victim"
+      # v.name = "caldera_victim"
       v.gui = true
       v.memory = 4000
       v.cpus = 2
