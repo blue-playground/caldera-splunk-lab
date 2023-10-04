@@ -5,6 +5,10 @@ Vagrant.configure("2") do |config|
     caldera.vm.box = "ubuntu/jammy64"
     caldera.vm.network "forwarded_port", guest: 8888, host: 8084,
       auto_correct:true
+    caldera.vm.network "forwarded_port", guest: 8000, host: 8885,
+      auto_correct:true
+    caldera.vm.network "forwarded_port", guest: 8089, host: 9003,
+      auto_correct:true
     caldera.vm.boot_timeout = 700
     caldera.vm.network :private_network, ip: "10.0.0.11"
     caldera.vm.provider "virtualbox" do |vb|
@@ -27,6 +31,7 @@ Vagrant.configure("2") do |config|
       pip3 install -r requirements.txt
       python3 server.py --insecure &
     SHELL
+    caldera.vm.provision :shell, path: "scripts/nix_config/install_splunk.sh"
     end
   config.vm.define "victim" do |victim|
     victim.vm.box = "gusztavvargadr/windows-10"
